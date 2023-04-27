@@ -69,7 +69,6 @@ def vote(request, question_id):
         #request.POST => 키로 전송된 자료에 접근할 수 있도록 해주는 객체
         # POST로 전달되는 key값인 choice는 detail.html에서 form으로 전달된 input의 name값이다.
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
         return render(
             request,
             "polls/detail.html",
@@ -102,3 +101,17 @@ def vote(request, question_id):
 # # 적절한 HTTP 응답(response)또는 예외를 반환하는 함수들을 포함합니다.
 # # HttpResponse는 Django에서 가장 기본적인 HTTP 응답 객체 중 하나입니다. 
 # # 이 객체를 사용하면, 단순한 문자열, HTML 코드, JSON 데이터 등을 포함한 응답을 생성할 수 있습니다.
+
+
+# loader는 템플릿을 로드하기 위해 사용되는 객체입니다. 
+# 일반적으로 loader.get_template() 메서드를 사용하여 템플릿 파일을 로드하고, 
+# 그 결과로 Template 객체를 반환합니다. 
+# 이후에는 Template 객체의 render() 메서드를 사용하여 컨텍스트를 적용한 렌더링 결과를 생성할 수 있습니다.
+
+# render는 Django에서 매우 일반적으로 사용되는 단축 함수입니다. 
+# render() 함수는 loader를 사용하여 템플릿을 로드하고 컨텍스트를 적용한 후, 
+# HttpResponse 객체를 반환합니다. 따라서 템플릿 파일을 로드하고 렌더링하는 작업을 한 번에 처리할 수 있습니다.
+
+# 따라서, loader는 템플릿을 로드하기 위한 객체이고, 
+# render는 템플릿 파일을 로드하고 컨텍스트를 적용한 뒤 HttpResponse 객체를 반환하는 간단한 방법입니다. 
+# render는 코드를 간결하게 만들어줍니다.

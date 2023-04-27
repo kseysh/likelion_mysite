@@ -33,4 +33,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
-
+# 관리 사이트에서 poll app을 변경가능하도록 만드는 기능
