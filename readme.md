@@ -32,18 +32,18 @@ Python 어플을 만드는 명령어 장고 프로젝트의 루트 디렉토리�
 
 <hr>
 
-![request_cycle](https://user-images.githubusercontent.com/69035864/235091437-e835dea4-5596-4e9e-9b39-c7f9adceeec1.jpg)
 ## 장고에 대해서
-> 장고를 이해하기 위해서는 장고의 request cycle에 대한 이해가 선행되어야 한다고 생각합니다.
->
->   1. client가 웹에 대한 정보를 요청
->   2. Nginx/Apache와 같은 web server가 요청을 받음 (장고에서는 개발을 위한 경량 개발 웹서버가 제공된다. 하지만 배포할 때는 Nginx/Apache와 같은 web server를 이용하여 배포해야 한다.)
->   3. wsgi를 통해 웹서버와 장고 프레임워크를 연결해준다. 
->   4. 사용자가 특정 주소를 요청한다.
->   5. url 파일에서 요청한 주소를 잘게 나눈다.(파싱)
->   6. 잘게 나눠진 주소는 view.py로 이동한다. (view에는 웹사이트를 위한 코드들이 있다.) ex) 데이터 저장, 데이터 베이스에서 꺼내옴
->   7. Template에서 디자인 담당 (html)
->   8. Template가 response를 받는다.
+![request_cycle](https://user-images.githubusercontent.com/69035864/235091437-e835dea4-5596-4e9e-9b39-c7f9adceeec1.jpg)
+ 장고를 이해하기 위해서는 장고의 request cycle에 대한 이해가 선행되어야 한다고 생각합니다.
+
+   1. client가 웹에 대한 정보를 요청
+   2. Nginx/Apache와 같은 web server가 요청을 받음 (장고에서는 개발을 위한 경량 개발 웹서버가 제공된다. 하지만 배포할 때는 Nginx/Apache와 같은 web server를 이용하여 배포해야 한다.)
+   3. wsgi를 통해 웹서버와 장고 프레임워크를 연결해준다. 
+   4. 사용자가 특정 주소를 요청한다.
+   5. url 파일에서 요청한 주소를 잘게 나눈다.(파싱)
+   6. 잘게 나눠진 주소는 view.py로 이동한다. (view에는 웹사이트를 위한 코드들이 있다.) ex) 데이터 저장, 데이터 베이스에서 꺼내옴
+   7. Template에서 디자인 담당 (html)
+   8. Template가 response를 받는다.
 
 ### django-admin startproject시 생성되는 파이썬 파일들.
 * __init__.py: 이 디렉토리를 Python 패키지로 간주해야 함을 Python에 알리는 빈 파일입니다.
