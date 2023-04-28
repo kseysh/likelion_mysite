@@ -37,14 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     #인증 및 권한 기능 제공 앱으로, 로그인, 로그아웃, 회원가입, 권한등의 기능 처리
     'django.contrib.contenttypes',
-    #객체 타입을 관리하는 앱으로, 모델 간 관계 설정에 사용
+    #객체 타입을 관리하는 앱으로, 모델 간 관계 설정(상속 등)에 사용
+    #ForeignKey 대신 편하게 GenericForeignKey처럼 사용할 수 있다.
     'django.contrib.sessions',
     # 세션 관리 기능 제공 앱으로, 사용자의 브라우저와 서버 간의 상태 정보를 유지하고 관리
     'django.contrib.messages',
     #사용자에게 메시지를 전달하는데 사용
     'django.contrib.staticfiles',
     #정적 파일 관리 앱으로, 개발 및 배포 시 정적 파일의 처리를 담당
-    #정적 파일 : html,css,javascript, image 같은 웹페이지를 구성하는 파
+    #정적 파일 : html,css,javascript, image 같은 웹페이지를 구성하는 파일
 ]# 이러한 어플 중 몇몇은 최소한 하나 이상의 데이터베이스 테이블을 사용하는데, 그러려면 py manage.py migrate라는 명령으로 데이터베이스를 생성해야함.
 
 MIDDLEWARE = [

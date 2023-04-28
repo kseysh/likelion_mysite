@@ -4,14 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-
 from .models import Choice, Question
-
-class IndexView(generic.ListView):
-    template_name = "polls/index.html"
-    context_object_name = "latest_question_list"
-    def get_queryset(self):
-        return Question.objects.order_by("-pub_date")[:5]
 
 # def index(request):
 #     latest_question_list = Question.objects.order_by("-pub_date")[:5]
@@ -25,12 +18,19 @@ class IndexView(generic.ListView):
 #     #render는 request 객체를 첫번째 인수로 받고, 템플릿 이름을 두 번째 인수로 받으며,
 #     #context 사전형 객체를 선택적 인수로 받는다. 
 #     # 인수로 지정된 context로 표현된 템플릿의 HttpResponse 객체가 반환된다.
-class DetailView(generic.DetailView):
-    #URL에서 캡처된 기본 키 값이 pk라고 기대하기 때문에 question_id를 pk로 변경한 것 임
-    model = Question
-    template_name = "polls/detail.html"
+
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now())
+        return Question.objects.order_by("-pub_date")[:5]
+    #request마다 order_by가 실행된다.
+    #queryset = Qusetion.~~ 이처럼 쓰면 앱이 시작될 때 단 한 번만 함수가 실행된다.
+    
+# 클래스 형 뷰는 기본적으로 클래스로 진입하기 위한 as_view() 클래스 메소드를 제공합니다. 
+# as_view( ) 진입 메소드의 역할은 클래스의 인스턴스를 생성하고, 그 인스턴스의 dispath( ) 메소드를 호출합니다. 
+# dispath( ) 메소드는 요청을 검사해서 GET, POST 등의 어떤 HTTP 메소드로 요청되었는지를 알아낸 다음, 
+# 인스턴스 내에서 해당 이름을 갖는 메소드로 요청을 중계해줍니다.
 
 
 # def detail(request, question_id):
@@ -44,11 +44,22 @@ class DetailView(generic.DetailView):
 # def detail(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, "polls/detail.html", {"question": question})
-# #get()을 사용해 Http404 예외를 발생시키는 방법
-# # get_object_or_404는 Django 객체를 첫 번째 인자로 받고, 
-# # 몇개의 키워드 인수를 모델 관리자의 get()함수에 넘긴다. 
-# # 만약 객체가 존재하지 않는다면, 404에러를 발생시킨다
-# #pk : primary key의 약어로 데이터베이스 테이블의 각 행을 고유하게 식별하는 유일한 값
+
+#get()을 사용해 Http404 예외를 발생시키는 방법
+# get_object_or_404는 Django 객체를 첫 번째 인자로 받고, 
+# 몇개의 키워드 인수를 모델 관리자의 get()함수에 넘긴다. 
+# 만약 객체가 존재하지 않는다면, 404에러를 발생시킨다
+#pk : primary key의 약어로 데이터베이스 테이블의 각 행을 고유하게 식별하는 유일한 값
+
+class DetailView(generic.DetailView):
+    #URL에서 캡처된 기본 키 값이 pk라고 기대하기 때문에 question_id를 pk로 변경한 것 임
+    model = Question
+    template_name = "polls/detail.html"
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
+
+
 
 class ResultsView(generic.DetailView):
     model = Question
