@@ -52,26 +52,23 @@ class IndexView(generic.ListView):
 #pk : primary key의 약어로 데이터베이스 테이블의 각 행을 고유하게 식별하는 유일한 값
 
 class DetailView(generic.DetailView):
-    #URL에서 캡처된 기본 키 값이 pk라고 기대하기 때문에 question_id를 pk로 변경한 것 임
     model = Question
     template_name = "polls/detail.html"
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
+    # __lte => less than equal filter에 거는 조건으로 이외에도 여러 조건들이 있음.
 
-
-
-
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = "polls/results.html"
 
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, "polls/results.html", {"question": question})
 
-def get_queryset(self):
-    return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
-#filter() 함수는 모델 클래스의 인스턴스들 중에서 특정 조건에 맞는 객체들만을 추출해내는데 사용됩니다.
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+    #filter() 함수는 모델 클래스의 인스턴스들 중에서 특정 조건에 맞는 객체들만을 추출해내는데 사용됩니다.
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -91,14 +88,10 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
-        #reverse 함수는 URL 패턴 이름을 사용하여 URL을 역으로 검색(reverse)하는 함수입니다.
+        #reverse 함수는 URL 패턴 이름을 사용하여 URL을 역으로 검색(reverse)하는 함수.
         #POST방식은 HttpResponseRedirect를 사용하여 반환해야한다.
-        #"polls" 애플리케이션의 "results" 뷰와 관련된 URL 패턴을 찾고 
-        # 해당 패턴에서 question.id 값이 매개 변수로 전달되도록 URL 문자열을 생성합니다.
+
         #reverse() 함수를 사용하면 URL 패턴을 변경하더라도 이전 URL을 사용하는 뷰 함수가 있는 경우 
         # 코드를 수정할 필요 없이 URL 패턴 이름만 수정하면 되므로, 
         # Django 애플리케이션의 유지 보수성과 재사용성을 높일 수 있습니다.
@@ -106,12 +99,6 @@ def vote(request, question_id):
         #예를 들어, "polls:results" URL 패턴의 이름이 "results"라고 정의되어 있다면 reverse("polls:results") 함수를 호출하여 해당 URL을 역으로 검색할 수 있습니다.
         #추가로, URL 패턴 이름 뿐만 아니라, 위치 인수(args)와 키워드 인수(kwargs)를 전달하여 URL 패턴에서 요구하는 동적 매개변수를 지정할 수도 있습니다. 
         # 예를 들어, reverse("polls:results", args=(question.id,))는 "polls:results" 패턴에 question.id를 인자로 전달하여 해당 URL을 역으로 검색할 수 있습니다.
-
-
-# # Django의 views.py 파일은 웹 어플리케이션의 요청(request)을 처리하고, 
-# # 적절한 HTTP 응답(response)또는 예외를 반환하는 함수들을 포함합니다.
-# # HttpResponse는 Django에서 가장 기본적인 HTTP 응답 객체 중 하나입니다. 
-# # 이 객체를 사용하면, 단순한 문자열, HTML 코드, JSON 데이터 등을 포함한 응답을 생성할 수 있습니다.
 
 
 # loader는 템플릿을 로드하기 위해 사용되는 객체입니다. 
@@ -122,7 +109,3 @@ def vote(request, question_id):
 # render는 Django에서 매우 일반적으로 사용되는 단축 함수입니다. 
 # render() 함수는 loader를 사용하여 템플릿을 로드하고 컨텍스트를 적용한 후, 
 # HttpResponse 객체를 반환합니다. 따라서 템플릿 파일을 로드하고 렌더링하는 작업을 한 번에 처리할 수 있습니다.
-
-# 따라서, loader는 템플릿을 로드하기 위한 객체이고, 
-# render는 템플릿 파일을 로드하고 컨텍스트를 적용한 뒤 HttpResponse 객체를 반환하는 간단한 방법입니다. 
-# render는 코드를 간결하게 만들어줍니다.

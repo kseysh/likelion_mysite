@@ -4,7 +4,6 @@ from .models import Choice, Question
 
 
 class ChoiceInline(admin.TabularInline):
-    #ChoiceInline은 Question 모델에서 Choice 모델을 조작하기 위한 Inline Form을 생성하는데 사용된다.
     model = Choice
     #model은 ChoiceInline에서 사용할 모델을 지정합니다.
     extra = 3
@@ -12,8 +11,6 @@ class ChoiceInline(admin.TabularInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    # QuestionAdmin은 admin.py 파일에서
-    # Question 모델의 관리자 페이지를 커스터마이징하기 위한 클래스입니다. 
     fieldsets = [
         #관리자 페이지에서 모델 객체를 표시할 때 필드들을 그룹으로 묶어서 표시하고 싶을 때 사용
         (None, {"fields": ["question_text"]}),
